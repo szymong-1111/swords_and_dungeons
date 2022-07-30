@@ -695,33 +695,24 @@ while running:
             move_dungeon('y', player.speed)
             bg_y += player.speed
 
+    if player.x > 1306:
+        offcenter_horizontal = True
+
+    if player.x < 614:
+        offcenter_horizontal = True
+
+    if player.y > 850:
+        offcenter_vertical = True
+
+    if player.y < 230:
+        offcenter_vertical = True
+
+    if player.x == 888:
+        offcenter_horizontal = False
+    if player.y == 518:
+        offcenter_vertical = False
+
     # MOVING THE PLAYER AND HIS WEAPONS
-
-    '''if player.turns_of_move:
-        player.turns_of_move -= player.speed
-        player.move()
-
-    else:
-        if player.xChange or player.yChange:
-            if w_pressing:
-                player.yChange = -player.speed
-                player.xChange = 0
-                player.turns_of_move = 80
-            elif s_pressing:
-                player.yChange = player.speed
-                player.xChange = 0
-                player.turns_of_move = 80
-            elif a_pressing:
-                player.xChange = -player.speed
-                player.yChange = 0
-                player.turns_of_move = 80
-            elif d_pressing:
-                player.xChange = player.speed
-                player.yChange = 0
-                player.turns_of_move = 80
-            else:
-                player.xChange = 0
-                player.yChange = 0'''
 
     player.move(screen)
     player.display(screen, counter)

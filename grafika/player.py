@@ -118,30 +118,6 @@ class Player:
             self.hprect.update(self.x, self.y - 15, self.hp, 10)
             self.rect.update(self.x+2, self.y+2, 60, 60)
 
-            # BOUNDARIES
-            if self.is_player:
-                global bg_x
-                global bg_y
-                global offcenter_horizontal
-                global offcenter_vertical
-
-                if self.x > 1664:
-                    offcenter_horizontal = True
-
-                if self.x < 256:
-                    offcenter_horizontal = True
-
-                if self.y > 824:
-                    offcenter_vertical = True
-
-                if self.y < 128:
-                    offcenter_vertical = True
-
-                if self.x == 888:
-                    offcenter_horizontal = False
-                if self.y == 518:
-                    offcenter_vertical = False
-
             # THE DIRECTION ARROW
             if self.is_player:
                 direction_arrow = pygame.image.load('direction_arrow.png').convert_alpha()
