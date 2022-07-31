@@ -154,7 +154,6 @@ def move_dungeon(dimension, amount):
                 thing.y += amount
         else:
             if dimension == 'x':
-                print(thing[1])
                 thing[1] += amount
             elif dimension == 'y':
                 thing[2] += amount

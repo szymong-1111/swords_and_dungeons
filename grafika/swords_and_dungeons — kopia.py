@@ -212,7 +212,6 @@ def move_dungeon(dimension, amount):
                 thing.y += amount
         else:
             if dimension == 'x':
-                print(thing[1])
                 thing[1] += amount
             elif dimension == 'y':
                 thing[2] += amount
@@ -335,15 +334,17 @@ def new_dungeon():
         # ENEMY
         # elPrimo = Player('ant_warrior.png', 200, 316, 50, 0, [arsenal.new_melee(arsenal.warhammer)], speed=5, equipped_weapon=arsenal.new_melee(arsenal.mandibles))
         elPrimo = mobs.new_mob(mobs.ant_warrior)
-        ghost = Player('the_zhodor_ant.png', random_x(), random_y(), 50, 0, [arsenal.new_melee(arsenal.warhammer)], speed=2, equipped_weapon=arsenal.new_melee(arsenal.small_sword))
+        elPrimo2 = mobs.new_mob(mobs.ant_warrior)
+        #ghost = Player('the_zhodor_ant.png', random_x(), random_y(), 50, 0, [arsenal.new_melee(arsenal.warhammer)], speed=2, equipped_weapon=arsenal.new_melee(arsenal.small_sword))
+        erring_soul = mobs.new_mob(mobs.erring_soul)
         #rat_boss = Player('greater_rat_boss.png', 200, 300, 100, 0, [], speed=1)
 
         npcs = [
-            Player(random.choice(('rat.png', 'rogue.png')), random_x(), random_y(), 50, 0, [arsenal.new_melee(arsenal.warhammer)], speed=2)
-            for _ in range(5)
+            mobs.new_mob(mobs.dungeon_rat)
+            for _ in range(3)
         ]
 
-        npcs.append(ghost)
+        npcs.append(erring_soul)
         npcs.append(elPrimo)
         #npcs.append(rat_boss)
 
@@ -473,7 +474,8 @@ while running:
         pass
         #pygame.draw.line(screen, (255, 0, 0), path[0], path[1])
 
-    screen.blit(downstairs_img, (downstairs_x, downstairs_y))
+    if math.sqrt(((downstairs_x + 40) - (player.x + 32)) ** 2 + ((downstairs_y + 40) - (player.y + 32)) ** 2) < 400:
+        screen.blit(downstairs_img, (downstairs_x, downstairs_y))
     if go_down():
         new_dungeon()
 
@@ -651,13 +653,14 @@ while running:
     for chest in chest_list:
         if math.sqrt(((chest.x + 32) - (player.x + 32)) ** 2 + ((chest.y + 32) - (player.y + 32)) ** 2) < 400:
             chest.display(screen)
+            chest.is_selected(screen)
 
     for npc in npcs:
         if math.sqrt(((npc.x + 32) - (player.x + 32)) ** 2 + ((npc.y + 32) - (player.y + 32)) ** 2) < 400:
             npc.display(screen, counter)
+            npc.is_selected(screen)
         npc.move(screen)
         npc.walk_around(player)
-        npc.is_selected(screen)
         collision(player, npc)
         '''for npc1 in npcs:
             if not npc1 == npc:
@@ -748,7 +751,7 @@ while running:
             chest.open(player, screen)
         else:
             chest_list.remove(chest)
-        chest.is_selected(screen)
+
         if chest.show_loot:
             if not chest.saved_count:
                 chest.saved_count = counter
